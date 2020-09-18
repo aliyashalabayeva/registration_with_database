@@ -14,6 +14,7 @@ public class DatabaseStore extends SQLiteOpenHelper {
     public static final String COLUMN_FULL_NAME = "user_full_name";
     public static final String COLUMN_EMAIL = "user_email";
     public static final String COLUMN_PASSWORD = "user_password";
+    public static final String COLUMN_COURSE = "user_course";
 
     Context context;
 
@@ -27,7 +28,8 @@ public class DatabaseStore extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_USER + "(" +
                 COLUMN_FULL_NAME + " TEXT, " +
                 COLUMN_EMAIL + " TEXT , " +
-                COLUMN_PASSWORD + " TEXT )");
+                COLUMN_PASSWORD + " TEXT," +
+                COLUMN_COURSE + " TEXT )");
     }
 
     @Override

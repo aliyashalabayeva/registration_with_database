@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static com.android.registrationwithdatabase.DatabaseStore.COLUMN_COURSE;
 import static com.android.registrationwithdatabase.DatabaseStore.COLUMN_EMAIL;
 import static com.android.registrationwithdatabase.DatabaseStore.COLUMN_FULL_NAME;
 import static com.android.registrationwithdatabase.DatabaseStore.COLUMN_PASSWORD;
@@ -21,7 +22,7 @@ import static com.android.registrationwithdatabase.DatabaseStore.TABLE_USER;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText etFullName, etEmail, etPassword;
+    EditText etFullName, etEmail, etPassword, etCourse;
     Button btnCreateAccount, btnLogin;
     DatabaseStore databaseStore;
     SQLiteDatabase sqLiteDatabase;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etFullName = findViewById(R.id.etFullName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        etCourse = findViewById(R.id.etCourse);
 
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
         btnLogin = findViewById(R.id.btnLogin);
@@ -67,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     etPassword.setError("Please, enter your password");
                     createAccount = false;
                 }
+                if (etCourse.getText().toString().isEmpty()){
+                    etCourse.setError("Please, enter your course");
+                    createAccount = false;
+                }
 
 
                 if (createAccount){
@@ -75,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userValue.put(COLUMN_FULL_NAME, etFullName.getText().toString());
                     userValue.put(COLUMN_EMAIL, etEmail.getText().toString());
                     userValue.put(COLUMN_PASSWORD, etPassword.getText().toString());
+                    userValue.put(COLUMN_COURSE, etCourse.getText().toString());
 
 
                     sqLiteDatabase.insert(TABLE_USER, null, userValue);
@@ -82,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
                     showDatabaseData();
                 } else {
-                    Toast.makeText(this, "Please, fill all information", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Please, fill all fields", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
@@ -104,10 +111,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String fullName = cursor.getString(cursor.getColumnIndex(COLUMN_FULL_NAME));
                 String email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL));
                 String password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD));
+                String course = cursor.getString(cursor.getColumnIndex(COLUMN_COURSE));
 
                 Log.i("Database", "full name: " + fullName);
                 Log.i("Database", "email: " + email);
                 Log.i("Database","password: " + password);
+                Log.i("Database", "course: " + course );
             }
         }
     }

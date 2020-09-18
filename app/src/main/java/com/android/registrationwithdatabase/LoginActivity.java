@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 if (LoginAccount){
-                    Cursor loginCursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_USER + " WHERE " +
+                    Cursor loginCursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + TABLE_USER + " WHERE " +
                             COLUMN_EMAIL + "=? AND " + COLUMN_PASSWORD + "=? ", new String[]{userEmail, userPassword});
                     if (loginCursor != null & loginCursor.getCount() > 0){
                         loginCursor.moveToFirst();
